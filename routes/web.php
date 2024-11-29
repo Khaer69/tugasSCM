@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,10 +30,8 @@ Route::middleware('auth')->group(function () {
 
 Route::prefix('dashboard')->middleware(['auth'])->group(function() {
     Route::get('/', function() {
-        return view('dashboard', ['title' => 'Dashboard'])->name('dashboard');
+        return view('dashboard.index');
     });
-
-    Route::prefix('user', [UserController::class, 'index'])->name('user.index');
 });
 
 require __DIR__.'/auth.php';
