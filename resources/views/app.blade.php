@@ -5,29 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title')</title>
     <!-- Bootstrap CSS -->
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.all.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.min.css" rel="stylesheet">
+  
 </head>
 <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">MyWebsite</a>
+            <a class="navbar-brand text-dark" href="{{ route('dashboard') }}">Home</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse " id="navbarNav">
                 <ul class="navbar-nav">
+                    {{-- <li class="nav-item">
+                        <a class="nav-link active text-dark" href="{{ route('dashboard') }}" class="">Home</a>
+                    </li> --}}
                     <li class="nav-item">
-                        <a class="nav-link active text-dark" href="#" class="">Home</a>
+                        <a class="nav-link text-dark" href="{{ route('kategori.index') }}">Kategori Product</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="#">Product</a>
+                        <a class="nav-link text-dark" href="{{ route('product.index') }}">Product</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-dark" href="#">Order</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="#">User</a>
+                        <a class="nav-link text-dark" href="{{ route('user.index') }}">Management Akun</a>
                     </li>
                 </ul>
             </div>
@@ -40,6 +50,12 @@
     </div>
 
     <!-- Bootstrap JS Bundle with Popper -->
+    
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
+    @include('sweetalert::alert')
+    @yield('script')
 </body>
 </html>
