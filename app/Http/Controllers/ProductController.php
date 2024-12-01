@@ -63,6 +63,46 @@ class ProductController extends Controller
         return response()->json($data, 200);
     }
 
+    public function update(Request $request) {
+        try{
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'deskripsi' => 'required|string',
+                'kategori_id' => 'required'
+            ]);
+
+            $id = $request->id;
+
+            $gambar = $request->file('image');
+            if ($gambar) {
+                $namaGambar = time() . "_" . $gambar->getClientOriginalName();
+                $gambar->move('uploads/products', $namaGambar);
+            } else {
+                $gambarLama = Product::findOrFail($id)->value('image');
+                $namaGambar =  $gambarLama;
+            }
+
+            $data = [
+                'users_id' => auth()->user()->id,
+                'name' => $request->name,
+                'deskripsi' => $request->deskripsi,
+                'image' => $namaGambar,
+                'kategori_id' => $request->kategori_id,
+                'harga' => $request->harga,
+                'quantity' => $request->quantity
+            ];
+
+
+            Product::where('id', $id)->update($data);
+            Alert::success('success', 'Product berhasil di Ubah.');
+            return redirect()->route('product.index');
+
+        }catch(Exception $e) {
+          
+            return redirect()->back()->withInput()->withErrors(['message' => 'Terjadi kesalahan saat menyimpan data.']);
+        }
+    }
+
     public function destroy(Request $request)
     {
         $id = $request->id;

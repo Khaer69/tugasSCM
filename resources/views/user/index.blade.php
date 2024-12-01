@@ -13,7 +13,7 @@
                 <table id="dataTable" class="table table-bordered">
                     <thead>
                         <tr>
-                            <th class="text-left">No</th>
+                            <th class="text-center">No</th>
                             <th class="text-center">Name</th>
                             <th class="text-center">Role</th>
                             <th class="text-center">Action</th>
@@ -22,9 +22,9 @@
                     <tbody>
                         @foreach ($users as $user)
                         <tr>
-                            <td>{{ $user->id }}</td>
-                            <td>{{ $user->name }}</td>
-                            <td>{{ $user->roles->pluck('name')->first() }}</td>
+                            <td class="text-center">{{ $loop->iteration }}</td>
+                            <td class="text-center">{{ $user->name }}</td>
+                            <td class="text-center">{{ $user->roles->pluck('name')->first() }}</td>
                             <td class="text-center">
                                 <button type="button" class="btn btn-warning" data-bs-toggle="modal"
                                     data-bs-target="#editModal" onclick="editData({{ $user->id }})">

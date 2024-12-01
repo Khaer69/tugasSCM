@@ -118,16 +118,18 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="editDataLabel">Modal title</h5>
+          <h5 class="modal-title" id="editDataLabel">Form Ubah Data Product</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
             <form action="{{ route('product.update') }}" method="POST" enctype="multipart/form-data">
                 @method('PUT')
                 @csrf
+
+                <input type="hidden" id="editId" name="id">
                 <div class="mb-3">
                   <label for="name" class="form-label">Kategori Product</label>
-                  <select class="form-select" aria-label="Default select example" name="kategori_id">
+                  <select class="form-select" aria-label="Default select example" id="editKategori" name="kategori_id">
                     <option selected value="">Pliih Kategori</option>
                     @foreach ($kategori as  $k)
                     <option value="{{ $k->id }}">{{ $k->nama }}</option>
@@ -139,13 +141,13 @@
     
                 <div class="mb-3"> 
                     <label for="text" class="form-label">Image Product</label>
-                    <img id="imagePreview" src="" alt="Preview Image" style="max-width: 100%; height: auto; margin-bottom: 10px; display: none;">
+                    <img id="editPreview" src="" alt="Preview Image" style="max-width: 100%; height: auto; margin-bottom: 10px; display: none;">
         
-                    <input type="file" name="image" class="form-control" id="image">
+                    <input type="file" name="image" class="form-control" id="images">
                 </div>
                 <div class="mb-3"> 
                     <label for="text" class="form-label">Nama Product</label>
-                    <input type="text" name="name" class="form-control" id="name" placeholder="Nama Product">
+                    <input type="text" name="name" class="form-control" id="editName" placeholder="Nama Product">
                 </div>
                 <div class="mb-3">
                     <textarea class="form-control" name="deskripsi" placeholder="Deskripsi" id="deskripsi"></textarea>
@@ -153,7 +155,7 @@
                 </div>
                 <div class="mb-3"> 
                     <label for="text" class="form-label">Jumlah Product</label>
-                    <input type="number" name="quantity" class="form-control" id="jumlah" placeholder="Enter Jumlah">
+                    <input type="number" name="quantity" class="form-control" id="editJumlah" placeholder="Enter Jumlah">
                 </div>
                 <div class="mb-3">
                     <label for="Harga" class="form-label">Harga Produk</label>
@@ -161,7 +163,7 @@
                         type="text" 
                         name="harga" 
                         class="form-control" 
-                        id="HargaProduk" 
+                        id="editHarga" 
                         placeholder="Enter Harga Produk">
                 </div>
                 <div class="modal-footer">
@@ -220,20 +222,33 @@ document.getElementById('image').addEventListener('change', function(event) {
             success: function(data) {
                 console.log(data);
                 $('#editId').val(data.id);
-                $('#name').val(data.name);
-                $('#kategori_id').val(data.kategori_id);
-                $('#jumlah').val(data.quantity);
+                $('#editName').val(data.name);
+                $('#editKategori').val(data.kategori_id);
+                $('#editJumlah').val(data.quantity);
                 $('#deskripsi').val(data.deskripsi);
-             
-              
-
-                
-               
-
+                $('#editHarga').val(data.harga);
+                $('#editPreview').attr('src', '/uploads/products/' + data.image).show();
             },
             error: function() {}
         })
     } 
+
+    document.getElementById('images').addEventListener('change', function(event) {
+    const file = event.target.files[0]; // Ambil file yang dipilih
+    const preview = document.getElementById('editPreview'); // Ambil elemen img untuk preview
+
+    if (file) {
+        const reader = new FileReader(); // Inisialisasi FileReader
+        reader.onload = function(e) {
+            preview.src = e.target.result; // Set source dari gambar preview
+            preview.style.display = 'block'; // Tampilkan elemen gambar
+        };
+        reader.readAsDataURL(file); // Baca file sebagai Data URL
+    } else {
+        preview.src = ''; // Kosongkan src jika tidak ada file
+        preview.style.display = 'none'; // Sembunyikan gambar
+    }
+});
     
     
     function hapusProduct(id) {

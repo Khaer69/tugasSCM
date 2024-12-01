@@ -27,19 +27,43 @@
                     {{-- <li class="nav-item">
                         <a class="nav-link active text-dark" href="{{ route('dashboard') }}" class="">Home</a>
                     </li> --}}
+                  @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('suplier'))
                     <li class="nav-item">
                         <a class="nav-link text-dark" href="{{ route('kategori.index') }}">Kategori Product</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-dark" href="{{ route('product.index') }}">Product</a>
                     </li>
+    
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="{{ route('product.index') }}">Pesanan Distributor</a>
+                    </li>
+                    @endif
+                    @role('distributor')
                     <li class="nav-item">
                         <a class="nav-link text-dark" href="#">Order</a>
                     </li>
+                    @endrole
+                    @role('admin')
                     <li class="nav-item">
                         <a class="nav-link text-dark" href="{{ route('user.index') }}">Management Akun</a>
                     </li>
+                    @endrole
+                    <li class="nav-item dropdown mx-auto ">
+                        <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Keluar
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <form action="{{ route('logout') }}" method="Post">
+                                @csrf
+                                <button type="submit" class="border-0 bg-white text-center">Logout</button>
+                            </form>
+                          <li><a class="dropdown-item" href="#">Another action</a></li>
+                          <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                      </li>
                 </ul>
+                
             </div>
         </div>
     </nav>
