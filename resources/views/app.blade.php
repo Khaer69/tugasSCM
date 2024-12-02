@@ -35,13 +35,22 @@
                         <a class="nav-link text-dark" href="{{ route('product.index') }}">Product</a>
                     </li>
     
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link text-dark" href="{{ route('product.index') }}">Pesanan Distributor</a>
-                    </li>
+                    </li> --}}
                     @endif
                     @role('distributor')
                     <li class="nav-item">
+                        <a class="nav-link text-dark" href="{{ route('distributor.index') }}">Data Distributor</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link text-dark" href="#">Order</a>
+                    </li>
+                    
+                    @endrole
+                    @role('user')
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="{{ route('pesan.index') }}">Pemesanan</a>
                     </li>
                     @endrole
                     @role('admin')
@@ -49,9 +58,12 @@
                         <a class="nav-link text-dark" href="{{ route('user.index') }}">Management Akun</a>
                     </li>
                     @endrole
-                    <li class="nav-item dropdown mx-auto ">
+                   
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                          Keluar
+                          {{ auth()->user()->name }}
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <form action="{{ route('logout') }}" method="Post">

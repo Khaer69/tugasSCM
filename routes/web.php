@@ -1,10 +1,13 @@
 <?php
 
-use App\Http\Controllers\KategoriController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\PelangganController;
+use App\Http\Controllers\DistribusiController;
+
 
 
 
@@ -54,6 +57,10 @@ Route::prefix('dashboard')->middleware(['auth'])->group(function() {
         Route::post('delete', [ProductController::class, 'destroy'])->name('product.delete');
     });
 
+    Route::prefix('distributors')->group(function() {
+        Route::get('/', [DistribusiController::class, 'index'])->name('distributor.index');
+    });
+
     Route::prefix('kategoris')->group(function() {
         Route::get('/', [KategoriController::class, 'index'])->name('kategori.index');
         Route::post('/store', [KategoriController::class, 'store'])->name('kategori.store');
@@ -61,6 +68,9 @@ Route::prefix('dashboard')->middleware(['auth'])->group(function() {
         Route::put('/Update', [KategoriController::class, 'update'])->name('kategori.update');
         Route::post('delete', [KategoriController::class, 'delete'])->name('kategori.delete');
     });
+
+    Route::get('pemesanan', [PelangganController::class, 'index'])->name('pesan.index');
+    Route::get('daftar_barang', [PelangganController::class, 'daftarBarang'])->name('daftar_barang');
 });
 
 require __DIR__.'/auth.php';

@@ -14,6 +14,8 @@ class UserController extends Controller
     {
         $user = User::get();
         $role = DB::table('roles')->get();
+       
+       
         return view('user.index', ['users' => $user, 'role' => $role]);
     }
 
@@ -29,6 +31,8 @@ class UserController extends Controller
             $data = new User();
             $data->name = $request->name;
             $data->email = $request->email;
+            $data->lokasi = $request->lokasi;
+            $data->kontak = $request->kontak;
             $data->password = bcrypt($request->password);
             $data->assignRole($request->role);
             $data->save();

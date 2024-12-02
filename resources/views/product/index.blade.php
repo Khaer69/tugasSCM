@@ -101,6 +101,17 @@
                     id="HargaProduk" 
                     placeholder="Enter Harga Produk">
             </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">Distributor</label>
+                <select class="form-select" aria-label="Default select example" name="distribusi_id">
+                    <option selected value="">Kirim Ke Distributor</option>
+                    @foreach ($distributor as  $k)
+                    <option value="{{ $k->id }}">{{ $k->name }}</option>
+                  
+                    @endforeach
+                   
+                  </select>
+            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary">Save changes</button>
@@ -166,6 +177,17 @@
                         id="editHarga" 
                         placeholder="Enter Harga Produk">
                 </div>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Distributor</label>
+                    <select class="form-select" aria-label="Default select example" id="editDistribusi" name="distribusi_id">
+                        <option selected value="">Kirim Ke Distributor</option>
+                        @foreach ($distributor as  $k)
+                        <option value="{{ $k->id }}">{{ $k->name }}</option>
+                      
+                        @endforeach
+                       
+                      </select>
+                </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save changes</button>
@@ -224,6 +246,7 @@ document.getElementById('image').addEventListener('change', function(event) {
                 $('#editId').val(data.id);
                 $('#editName').val(data.name);
                 $('#editKategori').val(data.kategori_id);
+                $('#editDistribusi').val(data.distribusi_id);
                 $('#editJumlah').val(data.quantity);
                 $('#deskripsi').val(data.deskripsi);
                 $('#editHarga').val(data.harga);

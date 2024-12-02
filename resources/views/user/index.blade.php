@@ -30,10 +30,9 @@
                                     data-bs-target="#editModal" onclick="editData({{ $user->id }})">
                                     +Edit Data
                                 </button>
-                                <button type="button" class="btn btn-danger"
-                                 onclick="alertHapus({{ $user->id }})">
-                                Hapus
-                            </button>
+                                <button type="button" class="btn btn-danger" onclick="alertHapus({{ $user->id }})">
+                                    Hapus
+                                </button>
                             </td>
                         </tr>
                         @endforeach
@@ -61,6 +60,33 @@
                         @error('name')
                         <div class="invalid-feedback">
                             {{ $errors->first('name') }}
+
+
+                        </div>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="kontak" class="form-label">Kontak</label>
+                        <input type="kontak" name="kontak" class="form-control @error('kontak') is-invalid
+                    
+                @enderror" id="kontak" placeholder="Masukkan kontak">
+                        @error('kontak')
+                        <div class="invalid-feedback">
+                            {{ $errors->first('kontak') }}
+
+
+                        </div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="lokasi" class="form-label">Alamat</label>
+                        <input type="lokasi" name="lokasi" class="form-control @error('lokasi') is-invalid
+                    
+                @enderror" id="lokasi" placeholder="Masukkan lokasi">
+                        @error('lokasi')
+                        <div class="invalid-feedback">
+                            {{ $errors->first('lokasi') }}
 
 
                         </div>
