@@ -52,6 +52,9 @@
                     <li class="nav-item">
                         <a class="nav-link text-dark" href="{{ route('pesan.index') }}">Pemesanan</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="{{ route('pesan.index') }}">Riwayat Pemesanan</a>
+                    </li>
                     @endrole
                     @role('admin')
                     <li class="nav-item">

@@ -70,7 +70,7 @@ Route::prefix('dashboard')->middleware(['auth'])->group(function() {
     });
 
     Route::get('pemesanan', [PelangganController::class, 'index'])->name('pesan.index');
-    Route::get('daftar_barang', [PelangganController::class, 'daftarBarang'])->name('daftar_barang');
+    Route::get('daftar_barang/{id}', [PelangganController::class, 'daftarBarang'])->name('daftar_barang');
 });
 
 require __DIR__.'/auth.php';
