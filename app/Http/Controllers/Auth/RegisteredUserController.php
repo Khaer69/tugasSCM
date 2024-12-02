@@ -9,6 +9,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
@@ -20,7 +21,10 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        $role = User::whereHas('roles', function ($query) {
+            $query->where('id', 4); // Role ID 3
+        })->first();
+        return view('auth.register', compact('role'));
     }
 
     /**
@@ -36,16 +40,26 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-
+        // $user = User::create([
+        //     'name' => $request->name,
+        //     'email' => $request->email,
+        //     'lokasi' => $request->lokasi,
+        //     'kontak' => $request->kontak,
+        //     'password' => Hash::make($request->password),
+        // ]);
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->lokasi = $request->lokasi;
+        $user->kontak = $request->kontak;
+        $user->password = bcrypt($request->password);
+        $user->password = bcrypt($request->password_confirmation);
+        $user->assignRole($request->role);
+        $user->save();
         event(new Registered($user));
-
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        // return redirect(RouteServiceProvider::HOME);
+        return redirect('/login');
     }
 }

@@ -17,17 +17,13 @@ class PelangganController extends Controller
        ->get();
         return view('pelanggan.index', compact('dis'));
     }
-
-
-    public function daftarBarang(Request $request, $id) {
+    
+    public function daftarBarang(Request $request) {
+        $id = $request->id;
         $daftarBarang =   DB::table('products')
-       ->select( 
-       'products.id', 'products.distribusi_id', 'products.name as namaProduct', 'products.harga', 'products.image')
+       ->select( 'products.id', 'products.distribusi_id', 'products.name as namaProduct', 'products.harga', 'products.image')
        ->where('products.distribusi_id',  $id)
        ->get();
-
         return view('pelanggan.order', compact('daftarBarang'));
-
-
     }
 }

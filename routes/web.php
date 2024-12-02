@@ -71,6 +71,8 @@ Route::prefix('dashboard')->middleware(['auth'])->group(function() {
 
     Route::get('pemesanan', [PelangganController::class, 'index'])->name('pesan.index');
     Route::get('daftar_barang/{id}', [PelangganController::class, 'daftarBarang'])->name('daftar_barang');
+
+    Route::get('riwayat_pemesanan', [PelangganController::class, 'riwayatPemesanan'])->name('riwayat_pemesanan');
 });
 
 require __DIR__.'/auth.php';
